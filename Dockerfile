@@ -33,5 +33,6 @@ RUN set -x \
   && rm -f /usr/local/bin/gosu
 USER digs
 WORKDIR /usr/local/digs
-ENTRYPOINT exec pm2
-CMD ["start", "bin/digs.js", "--name", "digs", "--log", "/var/log/pm2/pm2.log", "--watch", "--no-daemon"]
+RUN mkdir -p /usr/local/digs/log
+ENTRYPOINT ["pm2"]
+CMD ["start", "node_modules/.bin/digs", "--name", "digs", "--log", "log/pm2.log", "--watch", "--no-daemon"]
